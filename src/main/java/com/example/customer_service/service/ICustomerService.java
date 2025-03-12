@@ -12,7 +12,7 @@ public interface ICustomerService {
 
     CustomerDto findCustomerById(String id);
 
-    String updateCustomer(String id, CustomerDto customerDto);
+    CustomerDto updateCustomer(CustomerDto customerDto);
 
     String deleteCustomerById(String id);
 

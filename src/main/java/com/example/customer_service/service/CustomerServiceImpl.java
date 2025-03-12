@@ -41,7 +41,7 @@ public class CustomerServiceImpl implements ICustomerService {
         // Fetch all the customer entities from the repo
         var customers = repo.findAll();
 
-        // Map each Customer Entity to a CustomerDto using ModelMapper
+        // Convert the List to a Stream and Map each Customer Entity to a CustomerDto using ModelMapper
         return customers.stream()
                 .map(customer -> modelMapper.map(customer, CustomerDto.class))
                 .collect(Collectors.toList());
@@ -60,18 +60,18 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public String updateCustomer(String id, CustomerDto customerDto) {
-        // Fetch the Customer By Id or Else throw a Custom Exception if not found
-        var customer = repo.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found for the ID::" + id));
-        // Update the Customer entity fields with the values from the DTO
-        modelMapper.map(customerDto, customer);
-
-        // Save the updated entity to the repo
-        var updatedCustomer = repo.save(customer);
-
-        // Return a confirmation message
-        return "Customer updated successfully with the ID::" + updatedCustomer.getId();
+    public CustomerDto updateCustomer( CustomerDto customerDto) {
+       //Check with Optional of Nullable
+       return Optional.ofNullable(customerDto)
+            .map(dto -> {
+                //Convert the DTO to Customer
+                var customer = modelMapper.map(dto, Customer.class);
+                //Save the converted Customer to the Repo
+                var savedCustomer = repo.save(customer);
+                //Convert the Customer to DTO and return
+                return modelMapper.map(savedCustomer, CustomerDto.class);
+            })
+            .orElseThrow(() -> new CustomerNotFoundException("Customer Dto cannot be Null"));
     }
 
     @Override
