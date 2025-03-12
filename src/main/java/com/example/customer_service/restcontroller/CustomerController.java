@@ -43,40 +43,40 @@ public class CustomerController {
         return new ResponseEntity<>(customerDetails, HttpStatus.OK);
     }
 
-    @PutMapping("/updateCustomer/{id}")
-    public ResponseEntity<String> updateCustomerDetails(@PathVariable String id, @RequestBody CustomerDto customerDto){
-        var responseBody = service.updateCustomer(id, customerDto);
-        return new ResponseEntity<String>(responseBody, HttpStatus.OK);
+    @PutMapping("/updateCustomer")
+    public ResponseEntity<CustomerDto> updateCustomerDetails(@RequestBody CustomerDto customerDto){
+        var responseBody = service.updateCustomer(customerDto);
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteCustomerById/{id}")
     public ResponseEntity<String> deleteCustomerById(@PathVariable String id){
         var responseBody = service.deleteCustomerById(id);
-        return new ResponseEntity<String>(responseBody, HttpStatus.OK);
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
     @GetMapping("/findCustomersByFirstName/{firstName}")
     public ResponseEntity<List<CustomerDto>> findCustomerByFirstNamEntity(@PathVariable String firstName){
         var responseBody = service.findCustomerByFirstName(firstName);
-        return new ResponseEntity<List<CustomerDto>>(responseBody, HttpStatus.OK);
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
     @GetMapping("/findCustomersByCity/{city}")
     public ResponseEntity<List<CustomerDto>> findCustomerByCity(@PathVariable String city){
         var responseBody = service.findCustomerByCity(city);
-        return new ResponseEntity<List<CustomerDto>>(responseBody, HttpStatus.OK);
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
     @GetMapping("/findCustomersByState/{state}")
     public ResponseEntity<List<CustomerDto>> findCustomerByState(@PathVariable String state){
         var responseBody = service.findCustomerByState(state);
-        return new ResponseEntity<List<CustomerDto>>(responseBody, HttpStatus.OK);
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
     @GetMapping("/findCustomersByCountry/{country}")
     public ResponseEntity<List<CustomerDto>> findCustomerByCountry(@PathVariable String country){
         var responseBody = service.findCustomerByState(country);
-        return new ResponseEntity<List<CustomerDto>>(responseBody, HttpStatus.OK);
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
 
