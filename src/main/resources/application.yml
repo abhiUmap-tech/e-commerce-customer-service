@@ -6,10 +6,7 @@ spring:
   data:
     mongodb:
       uri: mongodb+srv://abhiumap31:RilGQicKUHIhUWuP@cluster0.2lirn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-
-      # Additional Spring Boot MongoDB properties (optional)
       database: customer-service
-
 
   # Hibernate and JPA properties (if applicable)
   jpa:
@@ -17,15 +14,17 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MongoDialect
-        
-server:
-  port: 8080
 
-# Logging Level
-logging:
-  level:
-    org:
-      springframework:
-        data:
-          mongodb:
-            core: DEBUG
+server:
+  port: 8081
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ # URL of the Eureka Server
+    fetch-registry: true # Fetch the registry from Eureka Server
+    register-with-eureka: true # Enable registration with Eureka Server
+  instance:
+    prefer-ip-address: true # Prefer using IP address for registration
+    instance-id: ${spring.application.name}:${server.port} # Unique instance ID for each service
+
